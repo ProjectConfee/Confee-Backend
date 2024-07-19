@@ -1,7 +1,9 @@
 package com.backend.confee;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class ConfeeApplication {
@@ -9,5 +11,8 @@ public class ConfeeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ConfeeApplication.class, args);
 	}
-
+	@Bean
+	public ModelMapper modelMapper(){
+		return new ModelMapper();
+	}
 }
