@@ -1,45 +1,63 @@
+//package com.backend.confee.entity;
+
+//
+//import jakarta.persistence.*;
+//import lombok.Getter;
+//import lombok.Setter;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.web.bind.annotation.CrossOrigin;
+//
+//@CrossOrigin
+//@Entity
+//@Table(name = "stalls")
+//@Getter
+//@Setter
+//public class Stall_sp {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(nullable = false)
+//    private long stallId;
+//
+//    private String stallName;
+//    private String sponsorId;
+//
+//    public Object getstallName() {
+//    }
+//
+//    public Object getsponsorId() {
+//    }
+//
+//    public long getstallId() {
+//    }
+//
+//    public long getStallId() {
+//    }
+//
+//    public Object getStallName() {
+//    }
+//}
+
 package com.backend.confee.entity;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
+@CrossOrigin
 @Entity
 @Table(name = "stalls")
+@Getter
+@Setter
 public class Stall_sp {
+
     @Id
-    private String stallId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private long stallId;
+
     private String stallName;
     private String sponsorId;
 
-    public String getStallId() {
-        return stallId;
-    }
-
-    public void setStallId(String stallId) {
-        this.stallId = stallId;
-    }
-
-    public String getStallName() {
-        return stallName;
-    }
-
-    public void setStallName(String stallName) {
-        this.stallName = stallName;
-    }
-
-    public String getSponsorId() {
-        return sponsorId;
-    }
-
-    public void setSponsorId(String sponsorId) {
-        this.sponsorId = sponsorId;
-    }
-
-
-
-
 
 }
-
