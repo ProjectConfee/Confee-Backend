@@ -35,7 +35,7 @@
 //    }
 //}
 
-package com.backend.confee.service.impl;
+package com.backend.confee.service;
 
 import com.backend.confee.dto.Announcement_spDTO;
 import com.backend.confee.entity.Announcement_sp;

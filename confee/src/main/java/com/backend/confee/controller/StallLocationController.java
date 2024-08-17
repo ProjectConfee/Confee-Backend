@@ -42,12 +42,12 @@ public class StallLocationController {
     @Autowired
     private StallLocationService stallLocationService;
 
-    @GetMapping
+    @GetMapping("/getAll")
     public List<StallLocationDTO> getAllStallLocations() {
         return stallLocationService.getAllStallLocations();
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public StallLocationDTO addStallLocation(@RequestBody StallLocationDTO stallLocationDTO) {
         return stallLocationService.saveStallLocation(stallLocationDTO);
     }

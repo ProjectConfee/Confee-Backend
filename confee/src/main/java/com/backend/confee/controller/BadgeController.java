@@ -3,9 +3,9 @@
 package com.backend.confee.controller;
 
 
-//import com.backend.confee.dto.BadgeDTO;
-//import com.backend.confee.entity.Badge;
-//import com.backend.confee.service.BadgeService;
+import com.backend.confee.dto.BadgeDTO;
+import com.backend.confee.entity.Badge;
+import com.backend.confee.service.BadgeService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.web.bind.annotation.*;
