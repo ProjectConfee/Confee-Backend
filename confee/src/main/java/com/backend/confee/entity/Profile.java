@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
@@ -297,10 +298,74 @@ import java.util.List;
 //    }
 //}
 
+//@Getter
+//@Setter
+//@Entity
+//@Table(name = "profiles")
+//public class Profile {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
+//
+//    private String companyName;
+//    private String companyAddress;
+//    private String contactNumber;
+//    private String companyEmail;
+//    private String biography;
+//
+//    @ElementCollection
+//    @CollectionTable(name = "play_games", joinColumns = @JoinColumn(name = "profile_id"))
+//    @Column(name = "play_game")
+//    private List<String> playGames;
+//
+//    private String companyLogo;
+//
+//    @ElementCollection
+//    @CollectionTable(name = "social_media_links", joinColumns = @JoinColumn(name = "profile_id"))
+//    private List<SocialMediaLink> socialMediaLinks;
+//
+//    public void setCompanyName(String companyName) {
+//    }
+//
+//    // Getters and Setters
+//    // ...
+//}
+
+
+
+//@Getter
+//@Setter
+//@Entity
+//@CrossOrigin
+//public class Profile {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
+//
+//    private String companyName;
+//    private String companyAddress;
+//    private String contactNumber;
+//    private String companyEmail;
+//
+//    @Column(columnDefinition = "TEXT")
+//    private String biography;
+//
+//    @ElementCollection
+//    private List<String> playGames;
+//
+//    private String companyLogo;
+//
+//    @ElementCollection
+//    private List<SocialMediaLink> socialMediaLinks;
+//
+//
+//}
+
 @Getter
 @Setter
 @Entity
-@Table(name = "profiles")
 public class Profile {
 
     @Id
@@ -312,22 +377,16 @@ public class Profile {
     private String contactNumber;
     private String companyEmail;
     private String biography;
-
-    @ElementCollection
-    @CollectionTable(name = "play_games", joinColumns = @JoinColumn(name = "profile_id"))
-    @Column(name = "play_game")
-    private List<String> playGames;
-
     private String companyLogo;
 
-    @ElementCollection
-    @CollectionTable(name = "social_media_links", joinColumns = @JoinColumn(name = "profile_id"))
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "profile_id")
+    private List<PlayGame> playGames;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "profile_id")
     private List<SocialMediaLink> socialMediaLinks;
 
-    public void setCompanyName(String companyName) {
-    }
 
-    // Getters and Setters
-    // ...
+
 }
-

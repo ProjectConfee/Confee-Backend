@@ -1,4 +1,4 @@
-//package com.backend.confee.repo;
+package com.backend.confee.repo;//package com.backend.confee.repo;
 //
 //
 ////
@@ -12,12 +12,19 @@
 //
 //public interface ProfileRepository extends JpaRepository<Profile, Long> {
 //}
-package com.backend.confee.repository;
+
 
 import com.backend.confee.entity.Profile;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+//import org.springframework.data.jpa.repository.JpaRepository;
+//import org.springframework.stereotype.Repository;
+//
+//@Repository
+//public interface ProfileRepository extends JpaRepository<Profile, Long> {
+//}
 
-@Repository
-public interface ProfileRepository extends JpaRepository<Profile, Long> {
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface   ProfileRepository extends JpaRepository<Profile, Long> {
 }

@@ -263,12 +263,7 @@
 ////    }
 ////
 ////}
-package com.backend.confee.service;
 
-
-import com.backend.confee.dto.ProfileDTO;
-import com.backend.confee.dto.SocialMediaLinkDto;
-import com.backend.confee.entity.Profile;
 
 
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -453,78 +448,315 @@ import com.backend.confee.entity.Profile;
 //    }
 //
 //    @Override
-//    public List<Profile> getAllProfiles() {
-//        return profileRepository.findAll();
+////    public List<Profile> getAllProfiles() {
+////        return profileRepository.findAll();
+////    }
+////}
+//
+//
+//import com.backend.confee.entity.SocialMediaLink;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Service;
+//
+//import java.util.List;
+//import java.util.stream.Collectors;
+//
+//@Service
+//public class ProfileServiceImpl implements ProfileService {
+//
+//    @Autowired
+//    private com.backend.confee.repository.ProfileRepository profileRepository;
+//
+//    @Override
+//    public ProfileDTO saveProfile(ProfileDTO profileDTO) {
+//        Profile profile = convertToEntity(profileDTO);
+//        Profile savedProfile = profileRepository.save(profile);
+//        return convertToDTO(savedProfile);
+//    }
+//
+//    @Override
+//    public List<ProfileDTO> getAllProfiles() {
+//        return profileRepository.findAll().stream()
+//                .map(this::convertToDTO)
+//                .collect(Collectors.toList());
+//    }
+//
+//    private Profile convertToEntity(ProfileDTO profileDTO) {
+//        Profile profile = new Profile();
+//        profile.setCompanyName(profileDTO.getCompanyName());
+//        profile.setCompanyAddress(profileDTO.getCompanyAddress());
+//        profile.setContactNumber(profileDTO.getContactNumber());
+//        profile.setCompanyEmail(profileDTO.getCompanyEmail());
+//        profile.setBiography(profileDTO.getBiography());
+//        profile.setPlayGames(profileDTO.getPlayGames());
+//        profile.setCompanyLogo(profileDTO.getCompanyLogo());
+//        profile.setSocialMediaLinks(profileDTO.getSocialMediaLinks()
+//                .stream()
+//                .map(link -> {
+//                    SocialMediaLink socialMediaLink = new SocialMediaLink();
+//                    socialMediaLink.setPlatform(link.getPlatform());
+//                    socialMediaLink.setUrl(link.getUrl());
+//                    return socialMediaLink;
+//                })
+//                .collect(Collectors.toList()));
+//        return profile;
+//    }
+//
+//    private ProfileDTO convertToDTO(Profile profile) {
+//        ProfileDTO profileDTO = new ProfileDTO();
+//        profileDTO.setCompanyName(profile.getCompanyName());
+//        profileDTO.setCompanyAddress(profile.getCompanyAddress());
+//        profileDTO.setContactNumber(profile.getContactNumber());
+//        profileDTO.setCompanyEmail(profile.getCompanyEmail());
+//        profileDTO.setBiography(profile.getBiography());
+//        profileDTO.setPlayGames(profile.getPlayGames());
+//        profileDTO.setCompanyLogo(profile.getCompanyLogo());
+//        profileDTO.setSocialMediaLinks(profile.getSocialMediaLinks()
+//                .stream()
+//                .map(link -> {
+//                    SocialMediaLinkDto linkDTO = new SocialMediaLinkDto();
+//                    linkDTO.setPlatform(link.getPlatform());
+//                    linkDTO.setUrl(link.getUrl());
+//                    return linkDTO;
+//                })
+//                .collect(Collectors.toList()));
+//        return profileDTO;
 //    }
 //}
 
 
+package com.backend.confee.service;
+
+
+import com.backend.confee.dto.ProfileDTO;
+
+import com.backend.confee.dto.SocialMediaLinkDTO;
+import com.backend.confee.entity.Profile;
 import com.backend.confee.entity.SocialMediaLink;
+import com.backend.confee.repo.ProfileRepository;
+import com.backend.confee.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
+//
+//@Service
+//public class ProfileServiceImpl implements ProfileService {
+//
+//    @Autowired
+//    private ProfileRepository profileRepository;
+//
+//    @Override
+//    public ProfileDTO addProfile(ProfileDTO profileDTO) {
+//        Profile profile = new Profile();
+//        // Map fields from ProfileDTO to Profile entity
+//        profile.setCompanyName(profileDTO.getCompanyName());
+//        profile.setCompanyAddress(profileDTO.getCompanyAddress());
+//        profile.setContactNumber(profileDTO.getContactNumber());
+//        profile.setCompanyEmail(profileDTO.getCompanyEmail());
+//        profile.setBiography(profileDTO.getBiography());
+//        profile.setPlayGames(profileDTO.getPlayGames());
+//       // profile.setCompanyLogo(profileDTO.getCompanyLogo());
+//        profile.setSocialMediaLinks(profileDTO.getSocialMediaLinks().stream()
+//                .map(dto -> new SocialMediaLink(dto.getPlatform(), dto.getUrl()))
+//                .collect(Collectors.toList()));
+//
+//        Profile savedProfile = profileRepository.save(profile);
+//
+//        return mapToDTO(savedProfile);
+//    }
+//
+//    @Override
+//    public List<ProfileDTO> getAllProfiles() {
+//        return profileRepository.findAll().stream()
+//                .map(this::mapToDTO)
+//                .collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public ProfileDTO getProfileById(Long id) {
+//        return profileRepository.findById(id)
+//                .map(this::mapToDTO)
+//                .orElseThrow(() -> new RuntimeException("Profile not found"));
+//    }
+//
+//    @Override
+//    public void deleteProfile(Long id) {
+//        profileRepository.deleteById(id);
+//    }
+//
+//
+//
+//    private ProfileDTO mapToDTO(Profile profile) {
+//        ProfileDTO dto = new ProfileDTO();
+//        // Map fields from Profile entity to ProfileDTO
+//        dto.setCompanyName(profile.getCompanyName());
+//        dto.setCompanyAddress(profile.getCompanyAddress());
+//        dto.setContactNumber(profile.getContactNumber());
+//        dto.setCompanyEmail(profile.getCompanyEmail());
+//        dto.setBiography(profile.getBiography());
+//        dto.setPlayGames(profile.getPlayGames());
+//        //dto.setCompanyLogo(profile.getCompanyLogo());
+//        dto.setSocialMediaLinks(profile.getSocialMediaLinks().stream()
+//                .map(link -> {
+//                    SocialMediaLinkDTO linkDTO = new SocialMediaLinkDTO();
+//                    linkDTO.setPlatform(link.getPlatform());
+//                    linkDTO.setUrl(link.getUrl());
+//                    return linkDTO;
+//                })
+//                .collect(Collectors.toList()));
+//        return dto;
+//    }
+//}
+
+
+//@Service
+//public class ProfileServiceImpl implements ProfileService {
+//
+//    @Autowired
+//    private ProfileRepository profileRepository;
+//
+//    @Override
+//    public ProfileDTO addProfile(ProfileDTO profileDTO) {
+//        Profile profile = new Profile();
+//        // Map fields from ProfileDTO to Profile entity
+//        profile.setCompanyName(profileDTO.getCompanyName());
+//        profile.setCompanyAddress(profileDTO.getCompanyAddress());
+//        profile.setContactNumber(profileDTO.getContactNumber());
+//        profile.setCompanyEmail(profileDTO.getCompanyEmail());
+//        profile.setBiography(profileDTO.getBiography());
+//        profile.setPlayGames(profileDTO.getPlayGames());
+//        profile.setCompanyLogo(profileDTO.getCompanyLogo());
+//        profile.setSocialMediaLinks(profileDTO.getSocialMediaLinks().stream()
+//                .map(dto -> new SocialMediaLink(dto.getPlatform(), dto.getUrl()))
+//                .collect(Collectors.toList()));
+//
+//        Profile savedProfile = profileRepository.save(profile);
+//
+//        return mapToDTO(savedProfile);
+//    }
+//
+//    @Override
+//    public List<ProfileDTO> getAllProfiles() {
+//        return profileRepository.findAll().stream()
+//                .map(this::mapToDTO)
+//                .collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public ProfileDTO getProfileById(Long id) {
+//        return profileRepository.findById(id)
+//                .map(this::mapToDTO)
+//                .orElseThrow(() -> new RuntimeException("Profile not found"));
+//    }
+//
+//    @Override
+//    public void deleteProfile(Long id) {
+//        profileRepository.deleteById(id);
+//    }
+//
+//    private ProfileDTO mapToDTO(Profile profile) {
+//        ProfileDTO dto = new ProfileDTO();
+//        // Map fields from Profile entity to ProfileDTO
+//        dto.setCompanyName(profile.getCompanyName());
+//        dto.setCompanyAddress(profile.getCompanyAddress());
+//        dto.setContactNumber(profile.getContactNumber());
+//        dto.setCompanyEmail(profile.getCompanyEmail());
+//        dto.setBiography(profile.getBiography());
+//        dto.setPlayGames(profile.getPlayGames());
+//        //dto.setCompanyLogo(profile.getCompanyLogo());
+//        dto.setSocialMediaLinks(profile.getSocialMediaLinks().stream()
+//                .map(link -> {
+//                    SocialMediaLinkDTO linkDTO = new SocialMediaLinkDTO();
+//                    linkDTO.setPlatform(link.getPlatform());
+//                    linkDTO.setUrl(link.getUrl());
+//                    return linkDTO;
+//                })
+//                .collect(Collectors.toList()));
+//        return dto;
+//    }
+//}
+
+import com.backend.confee.dto.playGameDTO;
+import com.backend.confee.entity.PlayGame;
+
+
+
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
 
     @Autowired
-    private com.backend.confee.repository.ProfileRepository profileRepository;
+    private ProfileRepository profileRepository;
 
     @Override
-    public ProfileDTO saveProfile(ProfileDTO profileDTO) {
-        Profile profile = convertToEntity(profileDTO);
-        Profile savedProfile = profileRepository.save(profile);
-        return convertToDTO(savedProfile);
-    }
-
-    @Override
-    public List<ProfileDTO> getAllProfiles() {
-        return profileRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
-    private Profile convertToEntity(ProfileDTO profileDTO) {
+    public ProfileDTO addProfile(ProfileDTO profileDTO) {
         Profile profile = new Profile();
         profile.setCompanyName(profileDTO.getCompanyName());
         profile.setCompanyAddress(profileDTO.getCompanyAddress());
         profile.setContactNumber(profileDTO.getContactNumber());
         profile.setCompanyEmail(profileDTO.getCompanyEmail());
         profile.setBiography(profileDTO.getBiography());
-        profile.setPlayGames(profileDTO.getPlayGames());
         profile.setCompanyLogo(profileDTO.getCompanyLogo());
-        profile.setSocialMediaLinks(profileDTO.getSocialMediaLinks()
-                .stream()
-                .map(link -> {
-                    SocialMediaLink socialMediaLink = new SocialMediaLink();
-                    socialMediaLink.setPlatform(link.getPlatform());
-                    socialMediaLink.setUrl(link.getUrl());
-                    return socialMediaLink;
-                })
+
+        // Map PlayGameDTO list to PlayGame entity list
+        profile.setPlayGames(profileDTO.getPlayGames().stream()
+                .map(dto -> new PlayGame(dto.getGameName(), dto.getGameType()))
                 .collect(Collectors.toList()));
-        return profile;
+
+        // Map SocialMediaLinkDTO list to SocialMediaLink entity list
+        profile.setSocialMediaLinks(profileDTO.getSocialMediaLinks().stream()
+                .map(dto -> new SocialMediaLink(dto.getPlatform(), dto.getUrl()))
+                .collect(Collectors.toList()));
+
+        Profile savedProfile = profileRepository.save(profile);
+
+        return mapToDTO(savedProfile);
     }
 
-    private ProfileDTO convertToDTO(Profile profile) {
-        ProfileDTO profileDTO = new ProfileDTO();
-        profileDTO.setCompanyName(profile.getCompanyName());
-        profileDTO.setCompanyAddress(profile.getCompanyAddress());
-        profileDTO.setContactNumber(profile.getContactNumber());
-        profileDTO.setCompanyEmail(profile.getCompanyEmail());
-        profileDTO.setBiography(profile.getBiography());
-        profileDTO.setPlayGames(profile.getPlayGames());
-        profileDTO.setCompanyLogo(profile.getCompanyLogo());
-        profileDTO.setSocialMediaLinks(profile.getSocialMediaLinks()
-                .stream()
+    @Override
+    public List<ProfileDTO> getAllProfiles() {
+        return profileRepository.findAll().stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ProfileDTO getProfileById(Long id) {
+        return profileRepository.findById(id)
+                .map(this::mapToDTO)
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+    }
+
+    @Override
+    public void deleteProfile(Long id) {
+        profileRepository.deleteById(id);
+    }
+
+    private ProfileDTO mapToDTO(Profile profile) {
+        ProfileDTO dto = new ProfileDTO();
+        dto.setCompanyName(profile.getCompanyName());
+        dto.setCompanyAddress(profile.getCompanyAddress());
+        dto.setContactNumber(profile.getContactNumber());
+        dto.setCompanyEmail(profile.getCompanyEmail());
+        dto.setBiography(profile.getBiography());
+        dto.setCompanyLogo(profile.getCompanyLogo());
+
+        // Map PlayGame entity list to PlayGameDTO list
+        dto.setPlayGames(profile.getPlayGames().stream()
+                .map(playGame -> new playGameDTO(playGame.getGameName(), playGame.getGameType()))
+                .collect(Collectors.toList()));
+
+        // Map SocialMediaLink entity list to SocialMediaLinkDTO list
+        dto.setSocialMediaLinks(profile.getSocialMediaLinks().stream()
                 .map(link -> {
-                    SocialMediaLinkDto linkDTO = new SocialMediaLinkDto();
+                    SocialMediaLinkDTO linkDTO = new SocialMediaLinkDTO();
                     linkDTO.setPlatform(link.getPlatform());
                     linkDTO.setUrl(link.getUrl());
                     return linkDTO;
                 })
                 .collect(Collectors.toList()));
-        return profileDTO;
+
+        return dto;
     }
 }

@@ -24,7 +24,17 @@ import java.util.List;
 import com.backend.confee.dto.ProfileDTO;
 import java.util.List;
 
+//public interface ProfileService {
+//    ProfileDTO saveProfile(ProfileDTO profileDTO);
+//    List<ProfileDTO> getAllProfiles();
+//}
+
+
 public interface ProfileService {
-    ProfileDTO saveProfile(ProfileDTO profileDTO);
+
+    ProfileDTO addProfile(ProfileDTO profileDTO);
     List<ProfileDTO> getAllProfiles();
-}
+    ProfileDTO getProfileById(Long id);
+    void deleteProfile(Long id);}
+
+
