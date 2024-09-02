@@ -96,5 +96,5 @@ public class Announcement_sp {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime timestamp;
 
-    // Remove custom getter and setter for timestamp
+
 }

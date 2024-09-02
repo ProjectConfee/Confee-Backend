@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @CrossOrigin
 @RestController
-@RequestMapping("/stall-locations")  // Updated endpoint
+@RequestMapping("/api/stall-locations")  // Updated endpoint
 public class StallLocationController {
 
     @Autowired

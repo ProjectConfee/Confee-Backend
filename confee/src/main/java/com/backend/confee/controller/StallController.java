@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stall")
+@RequestMapping("/api/stall")
 @CrossOrigin
 public class StallController {
 
