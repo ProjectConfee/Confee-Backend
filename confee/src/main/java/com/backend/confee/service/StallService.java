@@ -54,11 +54,18 @@ import java.util.List;
 //    }
 //}
 
+//public interface StallService {
+//
+//    void saveStall(Stall_sp stall);
+//
+//    List<Stall_spDto> getStallsBySponsorId(String sponsorId);
+//
+//    List<Stall_spDto> getAllStalls();
+//}
+
+
 public interface StallService {
-
     void saveStall(Stall_sp stall);
-
     List<Stall_spDto> getStallsBySponsorId(String sponsorId);
-
     List<Stall_spDto> getAllStalls();
 }
