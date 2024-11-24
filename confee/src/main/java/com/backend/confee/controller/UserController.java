@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/user")
+@RequestMapping("api/v1/admin")
 @CrossOrigin
 public class UserController {
     @Autowired
-    private UserService userService;
+    private  UserService userService;
 
     @Autowired
     private ResponseDTO responseDTO;
@@ -25,10 +25,19 @@ public class UserController {
     public ResponseEntity getUser(){
         try {
             List<UserDTO> userDTOList =userService.getAllUsers();
-            responseDTO.setCode(VarList.RSP_SUCCESS);
-            responseDTO.setMessage("Success");
-            responseDTO.setContent(userDTOList);
-            return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            if(userDTOList.isEmpty()){
+                responseDTO.setMessage("User not found");
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setContent(null);
+
+                return new ResponseEntity(responseDTO,HttpStatus.NOT_FOUND);
+            }else{
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Success");
+                responseDTO.setContent(userDTOList);
+                return new ResponseEntity(responseDTO, HttpStatus.OK);
+            }
+
         }catch (Exception exception){
             responseDTO.setCode(VarList.RSP_ERROR);
             responseDTO.setMessage(exception.getMessage());

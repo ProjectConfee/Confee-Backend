@@ -6,11 +6,10 @@ import com.backend.confee.repo.UserRepo;
 import com.backend.confee.util.VarList;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -32,7 +31,18 @@ public class UserService {
     }
     public List<UserDTO> getAllUsers(){
         List<User> users = userRepo.findAll();
-        return modelMapper.map(users, new TypeToken<List<UserDTO>>() {}.getType());
+        List<UserDTO> userDTOs = users.stream()
+                .map(user -> {
+                    try{
+                        return modelMapper.map(user, UserDTO.class);
+                    }catch (Exception e){
+                        return null;
+                    }
+
+                })
+                .filter(Objects::nonNull)
+                .toList();
+        return userDTOs;
     }
     public String updateUser(UserDTO userDTO){
         if (userRepo.existsById(userDTO.getId())){
