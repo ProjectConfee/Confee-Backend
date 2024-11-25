@@ -29,4 +29,9 @@ public class ParticipantFeedbackController {
     public ParticipantFeedbackDTO updateParticipantFeedback(@RequestBody ParticipantFeedbackDTO participantFeedbackDTO) {
         return participantFeedbackService.updateParticipantFeedback(participantFeedbackDTO);
     }
+
+    @DeleteMapping("/deleteParticipantFeedback")
+    public boolean deleteParticipantFeedback(@RequestBody ParticipantFeedbackDTO participantFeedbackDTO) {
+        return participantFeedbackService.deleteParticipantFeedback(participantFeedbackDTO);
+    }
 }
