@@ -39,6 +39,20 @@ public class UserProfileController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching announcements");
         }
     }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateAnnouncement(@PathVariable("id") Long id, @RequestBody Announcement_spDTO announcementDTO) {
+        try {
+            boolean updated = announcementService.updateAnnouncement(id, announcementDTO);
+            if (updated) {
+                return ResponseEntity.ok("Updated successfully");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Announcement not found");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update announcement");
+        }
+    }
 
 
 }
