@@ -24,4 +24,9 @@ public class ParticipantFeedbackController {
     public ParticipantFeedbackDTO saveParticipantFeedback(@RequestBody ParticipantFeedbackDTO participantFeedbackDTO) {
         return participantFeedbackService.saveParticipantFeedback(participantFeedbackDTO);
     }
+
+    @PutMapping("/updateParticipantFeedback")
+    public ParticipantFeedbackDTO updateParticipantFeedback(@RequestBody ParticipantFeedbackDTO participantFeedbackDTO) {
+        return participantFeedbackService.updateParticipantFeedback(participantFeedbackDTO);
+    }
 }
