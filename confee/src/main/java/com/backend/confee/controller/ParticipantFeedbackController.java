@@ -1,0 +1,41 @@
+package com.backend.confee.controller;
+
+import com.backend.confee.dto.ParticipantFeedbackDTO;
+import com.backend.confee.service.ParticipantFeedbackService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "api/participantFeedback")
+@CrossOrigin
+
+public class ParticipantFeedbackController {
+
+    @Autowired
+    private ParticipantFeedbackService participantFeedbackService;
+
+    @PostMapping("/saveParticipantFeedback")
+    public ParticipantFeedbackDTO saveParticipantFeedback(@RequestBody ParticipantFeedbackDTO participantFeedbackDTO) {
+        return participantFeedbackService.saveParticipantFeedback(participantFeedbackDTO);
+    }
+
+    @GetMapping("/getParticipantFeedback")
+    public List<ParticipantFeedbackDTO> getParticipantFeedback() {
+        return participantFeedbackService.getAllParticipantFeedback();
+    }
+
+    @PutMapping("/updateParticipantFeedback")
+    public ParticipantFeedbackDTO updateParticipantFeedback(@RequestBody ParticipantFeedbackDTO participantFeedbackDTO) {
+        return participantFeedbackService.updateParticipantFeedback(participantFeedbackDTO);
+    }
+
+    @DeleteMapping("/deleteParticipantFeedback")
+    public boolean deleteParticipantFeedback(@RequestBody ParticipantFeedbackDTO participantFeedbackDTO) {
+        return participantFeedbackService.deleteParticipantFeedback(participantFeedbackDTO);
+    }
+
+}
