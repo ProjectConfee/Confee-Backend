@@ -37,4 +37,9 @@ public class ParticipantFeedbackService {
         participantFeedbackRepo.save(modelMapper.map(participantFeedbackDTO, ParticipantFeedback.class));
         return participantFeedbackDTO;
     }
+
+    public boolean deleteParticipantFeedback(ParticipantFeedbackDTO participantFeedbackDTO) {
+        participantFeedbackRepo.delete(modelMapper.map(participantFeedbackDTO, ParticipantFeedback.class));
+        return true;
+    }
 }
