@@ -32,4 +32,9 @@ public class ParticipantFeedbackService {
         List<ParticipantFeedback> participantFeedbackList = participantFeedbackRepo.findAll();
         return modelMapper.map(participantFeedbackList, new TypeToken<List<ParticipantFeedbackDTO>>() {}.getType());
     }
+
+    public ParticipantFeedbackDTO updateParticipantFeedback(ParticipantFeedbackDTO participantFeedbackDTO) {
+        participantFeedbackRepo.save(modelMapper.map(participantFeedbackDTO, ParticipantFeedback.class));
+        return participantFeedbackDTO;
+    }
 }

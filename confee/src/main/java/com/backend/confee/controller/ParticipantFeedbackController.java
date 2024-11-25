@@ -28,4 +28,9 @@ public class ParticipantFeedbackController {
         return participantFeedbackService.getAllParticipantFeedback();
     }
 
+    @PutMapping("/updateParticipantFeedback")
+    public ParticipantFeedbackDTO updateParticipantFeedback(@RequestBody ParticipantFeedbackDTO participantFeedbackDTO) {
+        return participantFeedbackService.updateParticipantFeedback(participantFeedbackDTO);
+    }
+
 }
