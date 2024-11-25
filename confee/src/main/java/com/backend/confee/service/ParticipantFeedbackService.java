@@ -6,8 +6,11 @@ import com.backend.confee.repo.ParticipantFeedbackRepo;
 
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -23,5 +26,10 @@ public class ParticipantFeedbackService {
     public ParticipantFeedbackDTO saveParticipantFeedback(ParticipantFeedbackDTO participantFeedbackDTO) {
         participantFeedbackRepo.save(modelMapper.map(participantFeedbackDTO, ParticipantFeedback.class));
         return participantFeedbackDTO;
+    }
+
+    public List<ParticipantFeedbackDTO> getAllParticipantFeedback() {
+        List<ParticipantFeedback> participantFeedbackList = participantFeedbackRepo.findAll();
+        return modelMapper.map(participantFeedbackList, new TypeToken<List<ParticipantFeedbackDTO>>() {}.getType());
     }
 }
