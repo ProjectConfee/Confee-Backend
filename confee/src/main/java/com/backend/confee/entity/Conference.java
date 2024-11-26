@@ -5,15 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "User")
-public class User {
+@Table(name = "Conference")
+public class Conference {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String name;
-    private String address;
+    private int id;
+    private Date startDate;
+    private Date endDate;
+    private String logo;
+    private String coverPhoto;
+    private String location;
 }

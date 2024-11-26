@@ -9,11 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "User")
-public class User {
+@Table(name = "SubTopic")
+public class SubTopic {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-    private String address;
+    private String subTopic;
+
+    @ManyToOne
+    @JoinColumn(name = "workshop_day_id")
+    private WorkshopDay workshopDay;
 }
