@@ -9,17 +9,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 
-public class Speakers {
+public class Authors {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int speaker_id;
-    private String speaker_name;
+    private int author_id;
+    private String author_name;
     private String nic;
     private String email;
     private String phone;
+    private String code;
+    private String topic;
     private String status;
 }
