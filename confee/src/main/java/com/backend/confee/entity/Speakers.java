@@ -14,9 +14,11 @@ import lombok.NoArgsConstructor;
 @Data
 
 public class Speakers {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int speaker_id;
+
     private String speaker_name;
     private String nic;
     private String email;
