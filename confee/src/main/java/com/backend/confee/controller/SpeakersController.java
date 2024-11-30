@@ -16,8 +16,8 @@ public class SpeakersController {
     @Autowired
     private SpeakersService speakersService;
 
-    @PostMapping("/saveSpeaker")
-    public SpeakersDTO saveSpeaker(@RequestBody SpeakersDTO speakersDTO) {
+    @PostMapping("/saveSpeakers")
+    public SpeakersDTO saveSpeakers(@RequestBody SpeakersDTO speakersDTO) {
         return speakersService.saveSpeakers(speakersDTO);
     }
 
@@ -27,12 +27,12 @@ public class SpeakersController {
     }
 
     @PutMapping("/updateSpeakers")
-    public SpeakersDTO updateSpeaker(@RequestBody SpeakersDTO speakersDTO) {
+    public SpeakersDTO updateSpeakers(@RequestBody SpeakersDTO speakersDTO) {
         return speakersService.updateSpeakers(speakersDTO);
     }
 
     @DeleteMapping("/deleteSpeakers")
-    public boolean deleteSpeaker(@RequestBody SpeakersDTO speakersDTO) {
+    public boolean deleteSpeakers(@RequestBody SpeakersDTO speakersDTO) {
         return speakersService.deleteSpeakers(speakersDTO);
     }
 }
