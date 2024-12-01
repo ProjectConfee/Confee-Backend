@@ -1,11 +1,14 @@
 
 package com.backend.confee;
 
+import com.backend.confee.Config.JWTAuthFilter;
 import com.backend.confee.entity.Sponsor;
 import com.backend.confee.service.SponsorService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,5 +41,15 @@ public class ConfeeApplication {
 //			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 //		}
 //	}
+
+	@Bean
+	public ModelMapper modelMapper(){
+		return new ModelMapper();
+	}
+	@Bean
+	public JWTAuthFilter jwtAuthFilter() {
+		return new JWTAuthFilter();
+	}
+
 }
 
