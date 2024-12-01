@@ -1,7 +1,7 @@
 package com.backend.confee.service;
 
-import com.backend.confee.dto.ResponseDTO;
-import com.backend.confee.dto.WorkshopDTO;
+import com.backend.confee.dto.*;
+import com.backend.confee.entity.Schedule;
 import com.backend.confee.entity.SubTopic;
 import com.backend.confee.entity.Workshop;
 import com.backend.confee.entity.WorkshopDay;
@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,18 +26,31 @@ public class WorkshopService {
     private final WorkshopRepo workshopRepo;
     private final ModelMapper modelMapper;
     private final ResponseDTO responseDTO;
+    private  WorkshopDayDTO workshopDayDTO;
+    private ResourceService resourceService;
 
     public ResponseDTO saveWorkshop(WorkshopDTO workshopDTO) {
+
         try {
+            String postUrl = null;
+            String coverPhotoUrl = null;
+            if (workshopDTO.getPost() != null && !workshopDTO.getPost().isEmpty()) {
+                postUrl = resourceService.storeFile(workshopDTO.getPost());
+            }
+            if (workshopDTO.getCoverPhoto() != null && !workshopDTO.getCoverPhoto().isEmpty()) {
+                coverPhotoUrl = resourceService.storeFile(workshopDTO.getCoverPhoto());
+            }
             Workshop workshop = new Workshop();
             workshop.setTitle(workshopDTO.getTitle());
             workshop.setDescription(workshopDTO.getDescription());
             workshop.setLocation(workshopDTO.getLocation());
+            workshop.setMapLink(workshopDTO.getMapLink());
             workshop.setType(workshopDTO.getType());
+            workshop.setNoOfSeat(workshopDTO.getNoOfSeat());
             workshop.setCertificateFrom(workshopDTO.getCertificateFrom());
             workshop.setLunch(workshopDTO.isLunch());
-            workshop.setPost(workshopDTO.getPost());
-            workshop.setCoverPhoto(workshopDTO.getCoverPhoto());
+            workshop.setPost(postUrl);
+            workshop.setCoverPhoto(coverPhotoUrl);
 
             List<WorkshopDay> workshopDays = workshopDTO.getWorkshopDays().stream()
                     .map(dayDTO -> {
@@ -71,16 +85,88 @@ public class WorkshopService {
         return responseDTO;
     }
 
-//            Workshop workshop = modelMapper.map(workshopDTO, Workshop.class);
-//
-//            try{
-//                workshopRepo.save(workshop);
-//                responseDTO.setMessage("Workshop saved successfully");
-//                responseDTO.setStatusCode(HttpStatus.CREATED);
-//            }catch (Exception e){
-//                responseDTO.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-//                responseDTO.setMessage(e.getMessage());
-//            }
-//            return responseDTO;
-//    }
+
+
+    public WorkshopResDTO getWorkshopById(Integer id) {
+        Optional<Workshop> workshopOpt = workshopRepo.findById(id);
+        return workshopOpt.map(this::mapWorkshopToDTO).orElse(null);
+    }
+
+    private WorkshopResDTO mapWorkshopToDTO(Workshop workshop) {
+        // Convert the workshop days from entity to DTO
+        List<WorkshopDayDTO> workshopDayDTOs = workshop.getWorkshopDays().stream()
+                .map(this::mapWorkshopDayToDTO)
+                .collect(Collectors.toList());
+
+
+        // Return the final DTO representation of the workshop
+        return new WorkshopResDTO(
+                workshop.getId(),
+                workshop.getTitle(),
+                workshop.getDescription(),
+                workshop.getLocation(),
+                workshop.getMapLink(),
+                workshop.getType(),
+                workshop.getNoOfSeat(),
+                workshop.getCertificateFrom(),
+                workshop.isLunch(),
+                workshop.getPost(),
+                workshop.getCoverPhoto(),
+                workshopDayDTOs
+        );
+    }
+
+    private WorkshopDayDTO mapWorkshopDayToDTO(WorkshopDay workshopDay) {
+        // Convert the subtopics from entity to DTO
+        List<SubTopicDTO> subTopicDTOs = workshopDay.getSubTopics().stream()
+                .map(this::mapSubTopicToDTO)
+                .collect(Collectors.toList());
+
+        List<ScheduleDTO> scheduleDTOs =
+                (workshopDay.getSchedules() == null ? List.of() :
+                        workshopDay.getSchedules().stream()
+                                .map(this::mapScheduleToDTO)
+                                .collect(Collectors.toList()));
+
+
+        // Return the final DTO representation of the workshop day
+        return new WorkshopDayDTO(
+                workshopDay.getId(),
+                workshopDay.getDay(),
+                workshopDay.getDate(),
+                workshopDay.getStartTime(),
+                workshopDay.getEndTime(),
+                workshopDay.getMainTopic(),
+                workshopDay.getInvestment(),
+                workshopDay.getWorkshop(),
+                subTopicDTOs,
+                scheduleDTOs
+
+        );
+    }
+
+    private SubTopicDTO mapSubTopicToDTO(SubTopic subTopic) {
+        // Return the DTO representation of the subtopic
+        return new SubTopicDTO(
+                subTopic.getId(),
+                subTopic.getSubTopic(),
+                subTopic.getWorkshopDay()
+        );
+    }
+    private ScheduleDTO mapScheduleToDTO(Schedule schedule) {
+        // Return the DTO representation of the subtopic
+        return new ScheduleDTO(
+                schedule.getId(),
+                schedule.getEvent(),
+                schedule.getStartTime(),
+                schedule.getStatus(),
+                schedule.getWorkshopDay().getId()
+        );
+    }
+
+    public List<WorkshopResDTO> getWorkshopSummary() {
+        return workshopRepo.findWorkshopSummary();
+    }
+
+
 }

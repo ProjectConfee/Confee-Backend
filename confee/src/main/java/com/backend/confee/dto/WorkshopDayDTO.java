@@ -2,6 +2,7 @@ package com.backend.confee.dto;
 
 import com.backend.confee.entity.SubTopic;
 import com.backend.confee.entity.Workshop;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -10,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.util.List;
 
 @NoArgsConstructor
@@ -25,11 +25,15 @@ public class WorkshopDayDTO {
     private String mainTopic;
     private Double investment;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "workshop_id")
     private Workshop workshop;
 
     @OneToMany(mappedBy = "workshopDay", cascade = CascadeType.ALL)
-    private List<SubTopic> subTopics;
+    private List<SubTopicDTO> subTopics;
+
+    @OneToMany(mappedBy = "workshopDay", cascade = CascadeType.ALL)
+    private List<ScheduleDTO> schedule;
 
 }

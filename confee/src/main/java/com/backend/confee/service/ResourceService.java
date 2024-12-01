@@ -1,5 +1,6 @@
 package com.backend.confee.service;
 
+import com.backend.confee.dto.ResourceResponseDTO;
 import com.backend.confee.dto.ResourceUploadRequestDTO;
 import com.backend.confee.entity.Resource;
 import com.backend.confee.repo.ResourceRepo;
@@ -12,37 +13,54 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ResourceService {
     @Autowired
     private ResourceRepo fileMetadataRepository;
 
-    // Assuming you have a method to save the file to the file system or cloud storage
+    public ResourceService(ResourceRepo resourceRepository) {
+        this.fileMetadataRepository = resourceRepository;
+    }
+
     public String storeFile(MultipartFile file) throws IOException {
-        // Logic for storing file and returning the file URL
-        // For example, storing on disk or uploading to a cloud bucket
+
         String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
-        Path targetLocation = Paths.get("/Users/virajidewmini/Documents/Confee-Backend/confee/src/main/java/com/backend/confee/uploads", fileName);
+        System.out.println(fileName);
+        Path targetLocation = Paths.get("src/main/java/com/backend/confee/uploads", fileName);
         Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-        return targetLocation.toString(); // Or the URL to the cloud file
+        return "uploads/" + fileName;// Or the URL to the cloud file
     }
 
     public void saveFileMetadata(ResourceUploadRequestDTO fileMetadataDTO) throws IOException {
-        // Save the file to storage and get the file URL
-        String fileUrl = storeFile(fileMetadataDTO.getFile());
 
-        // Save the metadata into the database
+        String fileUrl = storeFile(fileMetadataDTO.getFile());
         Resource fileMetadata = new Resource();
         fileMetadata.setTitle(fileMetadataDTO.getTitle());
         fileMetadata.setDescription(fileMetadataDTO.getDescription());
         fileMetadata.setFileUrl(fileUrl);
-
-        // Assuming Workshop is already a valid entity and you can fetch it by ID
-//        Optional<Workshop> workshop = workshopRepository.findById(fileMetadataDTO.getWorkshopId());
-//        workshop.ifPresent(fileMetadata::setWorkshop);
+        fileMetadata.setWorkshopId(fileMetadataDTO.getWorkshopId());
 
         fileMetadataRepository.save(fileMetadata);
     }
+
+    public List<ResourceResponseDTO> getResourcesByWorkshopId(Long workshopId) {
+        List<Resource> resources = fileMetadataRepository.findByWorkshopId(workshopId);
+        return resources.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    private ResourceResponseDTO convertToDTO(Resource resource) {
+        ResourceResponseDTO dto = new ResourceResponseDTO();
+        dto.setId(resource.getId());
+        dto.setTitle(resource.getTitle());
+        dto.setDescription(resource.getDescription());
+        dto.setFileUrl(resource.getFileUrl());
+        dto.setCreatedAt(resource.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        return dto;
+    }
+
 }

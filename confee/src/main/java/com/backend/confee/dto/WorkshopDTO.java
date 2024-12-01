@@ -6,6 +6,7 @@ import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,12 +18,17 @@ public class WorkshopDTO {
     private String title;
     private String description;
     private String location;
+    private String mapLink;
     private String type;
+    private Integer noOfSeat;
     private String certificateFrom;
     private boolean lunch;
-    private String post;
-    private String coverPhoto;
+    private MultipartFile post;
+    private MultipartFile coverPhoto;
 
     @OneToMany(mappedBy = "workshop", cascade = CascadeType.ALL)
-    private List<WorkshopDay> workshopDays;
+    private List<WorkshopDayDTO> workshopDays;
+
+
 }
+

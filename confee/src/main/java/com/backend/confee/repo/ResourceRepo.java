@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ResourceRepo extends JpaRepository<Resource, Long> {
+    List<Resource> findByWorkshopId(Long workshopId);
 
 }

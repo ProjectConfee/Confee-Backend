@@ -1,23 +1,19 @@
-package com.backend.confee.entity;
+package com.backend.confee.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "Workshop")
-public class Workshop {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class WorkshopResDTO {
     private Integer id;
-    @Column(nullable = false)
     private String title;
     private String description;
     private String location;
@@ -29,7 +25,14 @@ public class Workshop {
     private String post;
     private String coverPhoto;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "workshop", cascade = CascadeType.ALL)
-    private List<WorkshopDay> workshopDays;
+    private List<WorkshopDayDTO> workshopDays;
+
+    public WorkshopResDTO(Integer id,String type, String title, Integer noOfSeat,String coverPhoto) {
+        this.id = id;
+        this.type = type;
+        this.title = title;
+        this.noOfSeat = noOfSeat;
+        this.coverPhoto = coverPhoto;
+    }
 }

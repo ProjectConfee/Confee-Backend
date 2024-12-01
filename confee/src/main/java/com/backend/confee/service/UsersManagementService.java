@@ -1,8 +1,11 @@
 package com.backend.confee.service;
 
 import com.backend.confee.dto.AllUserDTO;
+import com.backend.confee.dto.UserProfileDTO;
 import com.backend.confee.entity.AllUsers;
+import com.backend.confee.entity.UserProfile;
 import com.backend.confee.repo.AllUsersRepo;
+import com.backend.confee.repo.UserProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +20,7 @@ import java.util.Optional;
 public class UsersManagementService {
     @Autowired
     private AllUsersRepo usersRepo;
+    private UserProfileRepo profileRepo;
     @Autowired
     private JWTUtils jwtUtils;
     @Autowired
@@ -71,8 +75,32 @@ public class UsersManagementService {
         return response;
     }
 
-
-
+//    public UserProfile completeProfile(Integer userId, UserProfileDTO profileDto) {
+//
+//        Optional<AllUsers> userOpt = usersRepo.findById(userId);
+//        if (userOpt.isEmpty()) {
+//            throw new IllegalArgumentException("User not found!");
+//        }
+//
+//        AllUsers user = userOpt.get();
+//
+//        UserProfile profile = profileRepo.findByUserId(userId)
+//                .orElseThrow(() -> new IllegalArgumentException("Profile not found for this user!"));
+//
+//        profile.setFName(profileDto.getFName());
+//        profile.setLName(profileDto.getLName());
+//        profile.setIsComplete(true);
+//
+//        return profileRepo.save(profile);
+//    }
+//
+//    public Optional<AllUsers> findUserById(Integer userId) {
+//        return usersRepo.findById(userId);
+//    }
+//
+//    public Optional<UserProfile> findProfileByUserId(Integer userId) {
+//        return profileRepo.findByUserId(userId);
+//    }
 
 
     public AllUserDTO refreshToken(AllUserDTO refreshTokenReqiest){

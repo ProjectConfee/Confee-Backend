@@ -2,21 +2,29 @@ package com.backend.confee.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+
+import java.time.LocalTime;
+
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Data
-@Table(name = "SubTopic")
-public class SubTopic {
+@Table(name = "Schedule")
+public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String subTopic;
+    private Long id;
+    private String event;
+    private LocalTime startTime;
+    private String status;
+
+
 
     @JsonBackReference
     @ManyToOne

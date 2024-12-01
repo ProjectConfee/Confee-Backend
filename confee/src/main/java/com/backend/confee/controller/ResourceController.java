@@ -1,5 +1,6 @@
 package com.backend.confee.controller;
 
+import com.backend.confee.dto.ResourceResponseDTO;
 import com.backend.confee.dto.ResourceUploadRequestDTO;
 import com.backend.confee.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/files")
@@ -21,11 +23,11 @@ public class ResourceController {
     public ResponseEntity<String> uploadFile(
             @RequestParam("title")String title,
             @RequestParam("description") String description,
-//            @RequestParam("workshopId") Long workshopId,
+            @RequestParam("workshopId") Long workshopId,
             @RequestParam("file") MultipartFile file
             ) {
         try {
-            Long workshopId= 1L;
+
             ResourceUploadRequestDTO fileMetadataDTO  = new ResourceUploadRequestDTO();
             fileMetadataDTO.setTitle(title);
             fileMetadataDTO.setDescription(description);
@@ -34,12 +36,18 @@ public class ResourceController {
 
             fileMetadataService.saveFileMetadata(fileMetadataDTO);
 
-            System.out.println(fileMetadataDTO);
+            System.out.println(fileMetadataDTO.getWorkshopId());
 
             return ResponseEntity.ok("File uploaded successfully");
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File upload failed");
         }
+    }
+
+    @GetMapping("/{workshopId}")
+    public ResponseEntity<List<ResourceResponseDTO>> getResourcesByWorkshopId(@PathVariable Long workshopId) {
+        List<ResourceResponseDTO> resources = fileMetadataService.getResourcesByWorkshopId(workshopId);
+        return ResponseEntity.ok(resources);
     }
 }
