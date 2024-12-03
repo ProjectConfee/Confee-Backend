@@ -40,13 +40,13 @@ public class AuthorsService {
         if (existingUserOptional.isPresent()) {
             // If the user exists, update their role to "author"
             AllUsers existingUser = existingUserOptional.get();
-            existingUser.setRole("author");
+            existingUser.setRole("AUTHOR");
             allUsersRepo.save(existingUser); // Save the updated user
         } else {
             // If the user doesn't exist, optionally add them to the AllUsers table
             AllUsers newUser = new AllUsers();
             newUser.setEmail(authorsDTO.getEmail());
-            newUser.setRole("author");
+            newUser.setRole("AUTHOR");
             allUsersRepo.save(newUser); // Save the new user
         }
 

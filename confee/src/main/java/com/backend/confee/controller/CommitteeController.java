@@ -35,4 +35,5 @@ public class CommitteeController {
     public boolean deleteCommittee(@RequestBody CommitteeDTO committeeDTO) {
         return committeeService.deleteCommittee(committeeDTO);
     }
+
 }
