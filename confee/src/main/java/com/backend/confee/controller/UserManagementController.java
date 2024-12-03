@@ -16,6 +16,7 @@ public class UserManagementController {
 
     @PostMapping("/auth/register")
     public ResponseEntity<AllUserDTO> regeister(@RequestBody AllUserDTO reg){
+        System.out.println("test");
         return ResponseEntity.ok(usersManagementService.register(reg));
     }
 
