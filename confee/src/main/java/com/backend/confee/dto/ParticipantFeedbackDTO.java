@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 public class ParticipantFeedbackDTO {
     private int id;
-    private Long participantId;
+    private String participant_name;
     private String title;
     private String content;
     private int rating;
