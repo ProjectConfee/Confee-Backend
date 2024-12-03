@@ -9,7 +9,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
+
 
 public class QRCodeUtil {
 

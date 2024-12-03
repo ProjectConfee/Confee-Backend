@@ -1,13 +1,16 @@
 package com.backend.confee.controller;
 
 import com.backend.confee.dto.QRCodeRequest;
+import com.backend.confee.dto.QrScanRequestDTO;
 import com.backend.confee.entity.QRCode;
 import com.backend.confee.service.QRCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-        import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/qr")
@@ -27,14 +30,15 @@ public class QRCodeController {
     }
 
     @PostMapping("/scan")
-    public ResponseEntity<String> scanQRCode(@RequestParam("file") MultipartFile file) {
-        try {
-            String ticketId = qrCodeService.scanQRCode(file);
-            return ResponseEntity.ok("Scanned Ticket ID: " + ticketId);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error scanning QR code: " + e.getMessage());
+    public ResponseEntity<Map<String, Object>> scanQRCode(@RequestBody QrScanRequestDTO request) {
+        Map<String, Object> response = qrCodeService.updateQRCodeStatus(request.getTicketId(), request.getCardName());
+        if ((boolean) response.get("success")) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.badRequest().body(response);
         }
     }
+
 
     @GetMapping("/get/{ticketId}")
     public ResponseEntity<byte[]> getQRCode(@PathVariable String ticketId) {

@@ -21,9 +21,36 @@ public class QRCode {
     private String ticketId;
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "LONGBLOB")
     private byte[] qrCodeImage;
 
+
+    @Column(nullable = false)
+    private boolean entrance = false;
+
+    @Column(nullable = false)
+    private boolean lunch = false;
+
+    @Column(nullable = false)
+    private boolean refreshments = false;
+
     public QRCode(String ticketId, byte[] qrCodeBytes) {
+        this.ticketId = ticketId;
+        this.qrCodeImage = qrCodeBytes;
+        this.entrance = false;  // Default values
+        this.lunch = false;
+        this.refreshments = false;
+    }
+
+    @Override
+    public String toString() {
+        return "QRCode{" +
+                "id=" + id +
+                ", ticketId='" + ticketId + '\'' +
+                ", qrCodeImageSize=" + (qrCodeImage != null ? qrCodeImage.length : 0) + " bytes" +
+                ", entrance=" + entrance +
+                ", lunch=" + lunch +
+                ", refreshments=" + refreshments +
+                '}';
     }
 }
