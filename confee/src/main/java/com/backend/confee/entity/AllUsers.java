@@ -24,8 +24,8 @@ public class AllUsers implements UserDetails {
     private String password;
     private String role;
 
-//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Profile profile;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private UserProfile profile;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

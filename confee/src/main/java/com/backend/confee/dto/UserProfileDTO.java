@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class UserProfileDTO {
+
     private String name;
     private String email;
     private String phone;
@@ -11,8 +12,8 @@ public class UserProfileDTO {
     private String jobTitle;
     private String organization;
     private String country;
-    private Number yearOfExperience ;
-    private Number noOfAttendance;
+    private Integer yearOfExperience ;
+    private Integer noOfAttendance;
     private String researchInterest;
     private String dietaryReference;
     private Boolean accessibility;

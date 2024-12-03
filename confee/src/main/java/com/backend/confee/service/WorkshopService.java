@@ -1,10 +1,8 @@
 package com.backend.confee.service;
 
 import com.backend.confee.dto.*;
-import com.backend.confee.entity.Schedule;
-import com.backend.confee.entity.SubTopic;
-import com.backend.confee.entity.Workshop;
-import com.backend.confee.entity.WorkshopDay;
+import com.backend.confee.entity.*;
+import com.backend.confee.repo.WorkshopDayRepo;
 import com.backend.confee.repo.WorkshopRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +26,7 @@ public class WorkshopService {
     private final ResponseDTO responseDTO;
     private  WorkshopDayDTO workshopDayDTO;
     private ResourceService resourceService;
+    private WorkshopDayRepo workshopDayRepo;
 
     public ResponseDTO saveWorkshop(WorkshopDTO workshopDTO) {
 

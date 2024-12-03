@@ -5,7 +5,7 @@ import lombok.Data;
 
 
 @Entity
-@Table(name = "profile")
+@Table(name = "userProfile")
 @Data
 public class UserProfile {
     @Id
@@ -23,8 +23,8 @@ public class UserProfile {
     private String jobTitle;
     private String organization;
     private String country;
-    private Number yearOfExperience ;
-    private Number noOfAttendance;
+    private Integer yearOfExperience ;
+    private Integer noOfAttendance;
     private String researchInterest;
     private String dietaryReference;
     private Boolean accessibility;

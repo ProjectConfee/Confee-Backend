@@ -27,7 +27,6 @@ public class ResourceController {
             @RequestParam("file") MultipartFile file
             ) {
         try {
-
             ResourceUploadRequestDTO fileMetadataDTO  = new ResourceUploadRequestDTO();
             fileMetadataDTO.setTitle(title);
             fileMetadataDTO.setDescription(description);
