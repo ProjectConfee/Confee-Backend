@@ -2,6 +2,7 @@ package com.backend.confee.repo;
 
 import com.backend.confee.entity.AllUsers;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
