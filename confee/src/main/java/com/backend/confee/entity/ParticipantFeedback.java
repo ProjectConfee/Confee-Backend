@@ -18,7 +18,8 @@ public class ParticipantFeedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Long participantId;
+
+    private String participant_name;
     private String title;
     private String content;
     private int rating;
