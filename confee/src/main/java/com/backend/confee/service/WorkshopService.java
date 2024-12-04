@@ -25,7 +25,7 @@ public class WorkshopService {
     private final ModelMapper modelMapper;
     private final ResponseDTO responseDTO;
     private  WorkshopDayDTO workshopDayDTO;
-    private ResourceService resourceService;
+    private final ResourceService resourceService;
     private WorkshopDayRepo workshopDayRepo;
 
     public ResponseDTO saveWorkshop(WorkshopDTO workshopDTO) {
@@ -34,7 +34,9 @@ public class WorkshopService {
             String postUrl = null;
             String coverPhotoUrl = null;
             if (workshopDTO.getPost() != null && !workshopDTO.getPost().isEmpty()) {
+                System.out.println(workshopDTO.getPost());
                 postUrl = resourceService.storeFile(workshopDTO.getPost());
+
             }
             if (workshopDTO.getCoverPhoto() != null && !workshopDTO.getCoverPhoto().isEmpty()) {
                 coverPhotoUrl = resourceService.storeFile(workshopDTO.getCoverPhoto());
@@ -51,32 +53,130 @@ public class WorkshopService {
             workshop.setPost(postUrl);
             workshop.setCoverPhoto(coverPhotoUrl);
 
-            List<WorkshopDay> workshopDays = workshopDTO.getWorkshopDays().stream()
-                    .map(dayDTO -> {
-                        WorkshopDay workshopDay = new WorkshopDay();
-                        workshopDay.setDay(dayDTO.getDay());
-                        workshopDay.setDate(dayDTO.getDate());
-                        workshopDay.setStartTime(dayDTO.getStartTime());
-                        workshopDay.setEndTime(dayDTO.getEndTime());
-                        workshopDay.setMainTopic(dayDTO.getMainTopic());
-                        workshopDay.setInvestment(dayDTO.getInvestment());
+            if (workshopDTO.getNoOfDate()==1){
+                WorkshopDay workshopDay = new WorkshopDay();
+                workshopDay.setDay("Day 01");
+                workshopDay.setDate("2025-01-01");
+                workshopDay.setStartTime("09:00:00");
+                workshopDay.setEndTime("17:00:00");
+                workshopDay.setMainTopic("Data Science Workshop");
+                workshopDay.setInvestment(5000.00);
 
-                        List<SubTopic> subTopics= dayDTO.getSubTopics().stream().map(subTopic -> {
-                            SubTopic subTopic1 = new SubTopic();
-                            subTopic1.setSubTopic(subTopic.getSubTopic());
+                List<WorkshopDay> workshopDays = new java.util.ArrayList<>();
+                workshopDays.add(workshopDay);
 
-                            subTopic1.setWorkshopDay(workshopDay);
-                            return subTopic1;
-                        }).toList(); ;
-                        workshopDay.setSubTopics(subTopics);
-                        workshopDay.setWorkshop(workshop);
-                        return workshopDay;
-                    }).collect(Collectors.toList());
+                SubTopic subTopic1 = new SubTopic();
+                subTopic1.setSubTopic("Introduction to Data Science");
+                subTopic1.setWorkshopDay(workshopDay);
 
-            workshop.setWorkshopDays(workshopDays);
-            workshopRepo.save(workshop);
-            responseDTO.setStatusCode(HttpStatus.CREATED);
-            responseDTO.setMessage(HttpStatus.CREATED.toString());
+                SubTopic subTopic2 = new SubTopic();
+                subTopic2.setSubTopic("Data Model");
+                subTopic2.setWorkshopDay(workshopDay);
+
+                SubTopic subTopic3 = new SubTopic();
+                subTopic3.setSubTopic("Train Data Model");
+                subTopic3.setWorkshopDay(workshopDay);
+
+                List<SubTopic> subTopics = new java.util.ArrayList<>();
+                subTopics.add(subTopic1);
+                subTopics.add(subTopic2);
+                subTopics.add(subTopic3);
+
+                workshopDay.setSubTopics(subTopics);
+                workshopDay.setWorkshop(workshop);
+
+                workshop.setWorkshopDays(workshopDays);
+                workshopRepo.save(workshop);
+                responseDTO.setStatusCode(HttpStatus.CREATED);
+                responseDTO.setMessage(HttpStatus.CREATED.toString());
+
+            } else if (workshopDTO.getNoOfDate()==2) {
+                WorkshopDay workshopDay = new WorkshopDay();
+                workshopDay.setDay("Day 01");
+                workshopDay.setDate("2025-01-01");
+                workshopDay.setStartTime("09:00:00");
+                workshopDay.setEndTime("17:00:00");
+                workshopDay.setMainTopic("Data Science Workshop");
+                workshopDay.setInvestment(5000.00);
+
+                WorkshopDay workshopDay2 = new WorkshopDay();
+                workshopDay2.setDay("Day 02");
+                workshopDay2.setDate("2025-01-02");
+                workshopDay2.setStartTime("09:00:00");
+                workshopDay2.setEndTime("17:00:00");
+                workshopDay2.setMainTopic("Industry use in Data Science");
+                workshopDay2.setInvestment(10000.00);
+
+                List<WorkshopDay> workshopDays = new java.util.ArrayList<>();
+                workshopDays.add(workshopDay);
+                workshopDays.add(workshopDay2);
+
+                SubTopic subTopic1 = new SubTopic();
+                subTopic1.setSubTopic("Intro to Data Science usage");
+                subTopic1.setWorkshopDay(workshopDay);
+
+                SubTopic subTopic2 = new SubTopic();
+                subTopic2.setSubTopic("Data Model");
+                subTopic2.setWorkshopDay(workshopDay);
+
+
+                SubTopic subTopic4 = new SubTopic();
+                subTopic4.setSubTopic("Introduction to Industry Data Science");
+                subTopic4.setWorkshopDay(workshopDay2);
+
+                SubTopic subTopic5 = new SubTopic();
+                subTopic5.setSubTopic("Train Data Model");
+                subTopic5.setWorkshopDay(workshopDay2);
+
+
+                List<SubTopic> subTopics = new java.util.ArrayList<>();
+                subTopics.add(subTopic1);
+                subTopics.add(subTopic2);
+
+                List<SubTopic> subTopics2 = new java.util.ArrayList<>();
+                subTopics.add(subTopic4);
+                subTopics.add(subTopic5);
+
+
+                workshopDay.setSubTopics(subTopics);
+                workshopDay.setWorkshop(workshop);
+
+                workshopDay2.setSubTopics(subTopics2);
+                workshopDay2.setWorkshop(workshop);
+
+                workshop.setWorkshopDays(workshopDays);
+                workshopRepo.save(workshop);
+                responseDTO.setStatusCode(HttpStatus.CREATED);
+                responseDTO.setMessage(HttpStatus.CREATED.toString());
+
+            }else {
+
+            }
+//            List<WorkshopDay> workshopDays = workshopDTO.getWorkshopDays().stream()
+//                    .map(dayDTO -> {
+//                        WorkshopDay workshopDay = new WorkshopDay();
+//                        workshopDay.setDay(dayDTO.getDay());
+//                        workshopDay.setDate(dayDTO.getDate());
+//                        workshopDay.setStartTime(dayDTO.getStartTime());
+//                        workshopDay.setEndTime(dayDTO.getEndTime());
+//                        workshopDay.setMainTopic(dayDTO.getMainTopic());
+//                        workshopDay.setInvestment(dayDTO.getInvestment());
+//
+//                        List<SubTopic> subTopics= dayDTO.getSubTopics().stream().map(subTopic -> {
+//                            SubTopic subTopic1 = new SubTopic();
+//                            subTopic1.setSubTopic(subTopic.getSubTopic());
+//                            subTopic1.setWorkshopDay(workshopDay);
+//                            return subTopic1;
+//                        }).toList(); ;
+//                        workshopDay.setSubTopics(subTopics);
+//                        workshopDay.setWorkshop(workshop);
+//                        return workshopDay;
+//                    }).collect(Collectors.toList());
+//
+//            workshop.setWorkshopDays(workshopDays);
+//            workshopRepo.save(workshop);
+//            responseDTO.setStatusCode(HttpStatus.CREATED);
+//            responseDTO.setMessage(HttpStatus.CREATED.toString());
         } catch (Exception e) {
             responseDTO.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
             responseDTO.setMessage(e.getMessage());

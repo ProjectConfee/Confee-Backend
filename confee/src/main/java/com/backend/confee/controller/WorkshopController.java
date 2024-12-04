@@ -8,6 +8,7 @@ import com.backend.confee.service.WorkshopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,7 +21,34 @@ public class WorkshopController {
     private ResponseDTO responseDTO;
 
     @PostMapping("/saveWorkshop")
-    public ResponseEntity saveWorkshop(@RequestBody WorkshopDTO workshopDTO){
+    public ResponseEntity saveWorkshop(
+            @RequestParam String type,
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam int noOfSeat,
+            @RequestParam int noOfDate,
+            @RequestParam String certificateFrom,
+            @RequestParam String mapLink,
+            @RequestParam String location,
+            @RequestParam boolean lunch,
+            @RequestParam MultipartFile post,
+            @RequestParam MultipartFile coverPhoto
+            ){
+        System.out.println(232);
+
+        WorkshopDTO workshopDTO=new WorkshopDTO();
+        workshopDTO.setLunch(lunch);
+        workshopDTO.setType(type);
+        workshopDTO.setTitle(title);
+        workshopDTO.setDescription(description);
+        workshopDTO.setNoOfSeat(noOfSeat);
+        workshopDTO.setNoOfDate(noOfDate);
+        workshopDTO.setCertificateFrom(certificateFrom);
+        workshopDTO.setMapLink(mapLink);
+        workshopDTO.setLocation(location);
+        workshopDTO.setPost(post);
+        workshopDTO.setCoverPhoto(coverPhoto);
+
         responseDTO = workshopService.saveWorkshop(workshopDTO);
         return new ResponseEntity(responseDTO.getMessage(), responseDTO.getStatusCode());
     }

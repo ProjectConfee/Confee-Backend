@@ -28,6 +28,7 @@ public class ResourceService {
     }
 
     public String storeFile(MultipartFile file) throws IOException {
+        System.out.println("hello");
 
         String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
         System.out.println(fileName);

@@ -21,6 +21,7 @@ public class WorkshopDTO {
     private String mapLink;
     private String type;
     private Integer noOfSeat;
+    private Integer noOfDate;
     private String certificateFrom;
     private boolean lunch;
     private MultipartFile post;
