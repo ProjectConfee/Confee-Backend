@@ -59,22 +59,22 @@ public class WorkshopService {
                 workshopDay.setDate("2025-01-01");
                 workshopDay.setStartTime("09:00:00");
                 workshopDay.setEndTime("17:00:00");
-                workshopDay.setMainTopic("Data Science Workshop");
+                workshopDay.setMainTopic("Transformers");
                 workshopDay.setInvestment(5000.00);
 
                 List<WorkshopDay> workshopDays = new java.util.ArrayList<>();
                 workshopDays.add(workshopDay);
 
                 SubTopic subTopic1 = new SubTopic();
-                subTopic1.setSubTopic("Introduction to Data Science");
+                subTopic1.setSubTopic("Introduction to Transformers");
                 subTopic1.setWorkshopDay(workshopDay);
 
                 SubTopic subTopic2 = new SubTopic();
-                subTopic2.setSubTopic("Data Model");
+                subTopic2.setSubTopic("Training");
                 subTopic2.setWorkshopDay(workshopDay);
 
                 SubTopic subTopic3 = new SubTopic();
-                subTopic3.setSubTopic("Train Data Model");
+                subTopic3.setSubTopic("Model Architecture");
                 subTopic3.setWorkshopDay(workshopDay);
 
                 List<SubTopic> subTopics = new java.util.ArrayList<>();
@@ -96,7 +96,7 @@ public class WorkshopService {
                 workshopDay.setDate("2025-01-01");
                 workshopDay.setStartTime("09:00:00");
                 workshopDay.setEndTime("17:00:00");
-                workshopDay.setMainTopic("Data Science Workshop");
+                workshopDay.setMainTopic("Game Design");
                 workshopDay.setInvestment(5000.00);
 
                 WorkshopDay workshopDay2 = new WorkshopDay();
@@ -104,7 +104,7 @@ public class WorkshopService {
                 workshopDay2.setDate("2025-01-02");
                 workshopDay2.setStartTime("09:00:00");
                 workshopDay2.setEndTime("17:00:00");
-                workshopDay2.setMainTopic("Industry use in Data Science");
+                workshopDay2.setMainTopic("Game Development");
                 workshopDay2.setInvestment(10000.00);
 
                 List<WorkshopDay> workshopDays = new java.util.ArrayList<>();
@@ -112,20 +112,20 @@ public class WorkshopService {
                 workshopDays.add(workshopDay2);
 
                 SubTopic subTopic1 = new SubTopic();
-                subTopic1.setSubTopic("Intro to Data Science usage");
+                subTopic1.setSubTopic("Role of a Game Designer");
                 subTopic1.setWorkshopDay(workshopDay);
 
                 SubTopic subTopic2 = new SubTopic();
-                subTopic2.setSubTopic("Data Model");
+                subTopic2.setSubTopic("Mechanics");
                 subTopic2.setWorkshopDay(workshopDay);
 
 
                 SubTopic subTopic4 = new SubTopic();
-                subTopic4.setSubTopic("Introduction to Industry Data Science");
+                subTopic4.setSubTopic("Role of a Game Developer");
                 subTopic4.setWorkshopDay(workshopDay2);
 
                 SubTopic subTopic5 = new SubTopic();
-                subTopic5.setSubTopic("Train Data Model");
+                subTopic5.setSubTopic("Design to Development");
                 subTopic5.setWorkshopDay(workshopDay2);
 
 
